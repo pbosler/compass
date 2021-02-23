@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config case="forward">
+	<add_link source="../initial_state/initial_state.nc" dest="init.nc"/>
+	<add_link source="../base_mesh/graph.info" dest="graph.info"/>
+
+	<add_executable source="model" dest="ocean_model"/>
+
+	<namelist name="namelist.ocean" mode="forward">
+		<template file="templates/template_forward_act.xml" path_base="script_configuration_dir"/>
+		<option name="config_dt">'TMP_config_dt'</option>
+		<option name="config_time_integrator">'TMP_integrator'</option>
+	</namelist>
+
+	<streams name="streams.ocean" keep="immutable" mode="forward">
+		<template file="templates/template_forward_act.xml" path_base="script_configuration_dir"/>
+	</streams>
+
+	<run_script name="run.py">
+		<step executable="gpmetis">
+		<argument flag="graph.info">TMP_procs</argument>
+		</step>
+		<model_run procs="TMP_procs" threads="1" namelist="namelist.ocean" streams="streams.ocean"/>
+	</run_script>
+</config>

@@ -1,0 +1,37 @@
+# all_resvals = [60,90,120,150,180,210,240]
+resolutions:
+#  QU60:
+#    timestep_minutes: 0.5
+#    vert_levels: 30
+#    nprocs: 2048
+#  QU90:
+#    timestep_minutes: 1
+#    vert_levels: 30
+#    nprocs: 1024
+#  QU120:
+#    timestep_minutes: 2
+#    vert_levels: 30
+#    nprocs: 512
+#  QU150:
+#    timestep_minutes: 4
+#    vert_levels: 30
+#    nprocs: 288
+#  QU180:
+#    timestep_minutes: 8
+#    vert_levels: 30
+#    nprocs: 144
+  QU210:
+    timestep_minutes: 16
+    vert_levels: 30
+    nprocs: 72
+  QU240:
+    timestep_minutes: 32
+    vert_levels: 30
+    nprocs: 36
+
+# all_integrators = ["rk4", "split"]
+integrators: ["rk4", "split"]
+
+# all_test_names = ["correlated_tracers", "deformation3D", "divergent2D", "Hadley3D",
+#                   "horizontalWithTopo3D", "nondivergent2D", "rotation2D"]
+test_names: ["correlated_tracers", "divergent2D", "nondivergent2D", "rotation2D"]
