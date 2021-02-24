@@ -21,7 +21,6 @@ transport_tests_dir = os.path.abspath(os.path.join(script_path, '..'))
 # Config files
 xmlfiles = glob.glob(os.path.join(script_path,"*.xml"))
 
-
 # Define common strings
 shebang = r'#!/usr/bin/env python'
 cblock = '"""\n'
@@ -110,7 +109,10 @@ def clean_transport_tests():
     if is_res_dir(d):
       rmtree(d);
 
-def validate_cfg_input(cfg):
+def verify_cfg_input(cfg):
+  """
+    Verify yaml input for correct values
+  """
   if not (cfg["integrator"] == "rk4" or cfg["integrator"] == "split"):
     raise RuntimeError("Integrator must be one of ['rk4', 'split']")
   for reskey in cfg["resolutions"]:
@@ -127,6 +129,11 @@ def validate_cfg_input(cfg):
       raise RuntimeError("Invalid number of processors")
 
 def get_timestep_str(dtminutes):
+  """
+    These tests expect the time step to be input in units of minutes, but MPAS
+    requires an "HH:MM:SS" string.  This function converts the time step input
+    into the formatted string used by MPAS.
+  """
    dt = timedelta(minutes=dtminutes)
    if  dtminutes < 1:
      dtstr = "00:00:" + str(dt.total_seconds())[:2]
@@ -143,6 +150,14 @@ def get_timestep_str(dtminutes):
    return dtstr
 
 def get_sed_exp(dt, nprocs, integrator):
+  """
+    Some of the required MPAS input are defined in template .xml files.
+    The templates need to be altered with correct values (from input) to
+    generate MPAS-readable input files.
+
+    This function generates the sed commands required to modify the templates
+    according to the config input.
+  """
   dts = r"s/TMP_config_dt/" + get_timestep_str(dt) + "/g"
   nps = r"s/TMP_procs/" + str(nprocs) + "/g"
   tis = r"s/TMP_integrator/" + integrator + "/g"
@@ -178,13 +193,11 @@ if __name__ == '__main__':
   else:
     print("reading input from file " + args.input_file)
 
-  # Read & validate config input
+  # Read & verify config input
   cfg = get_input_dict(args.input_file)
   print("Building transport tests for resolutions = ", cfg["resolutions"].keys())
-  validate_cfg_input(cfg)
-
+  verify_cfg_input(cfg)
   itr = cfg["integrator"]
-
 
   # Iterate over resolutions
   ntests = 0
