@@ -6,13 +6,13 @@
 	<add_executable source="model" dest="ocean_model"/>
 
 	<namelist name="namelist.ocean" mode="forward">
-		<template file="templates/template_forward_act.xml" path_base="script_configuration_dir"/>
+		<template file="templates/template_forward_transport.xml" path_base="script_configuration_dir"/>
 		<option name="config_dt">'TMP_config_dt'</option>
 		<option name="config_time_integrator">'TMP_integrator'</option>
 	</namelist>
 
 	<streams name="streams.ocean" keep="immutable" mode="forward">
-		<template file="templates/template_forward_act.xml" path_base="script_configuration_dir"/>
+		<template file="templates/template_forward_transport.xml" path_base="script_configuration_dir"/>
 	</streams>
 
 	<run_script name="run.py">

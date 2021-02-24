@@ -182,9 +182,6 @@ if __name__ == '__main__':
   parser.add_argument("--all", action="store_true",
     help="enable all transport tests (this ignores the input file)")
 
-  print("xmlin = ", xmlin)
-  print("xmlcp = ", xmlcp)
-
   # Process input args
   args = parser.parse_args()
 
