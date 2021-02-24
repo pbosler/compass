@@ -129,11 +129,11 @@ def verify_cfg_input(cfg):
       raise RuntimeError("Invalid number of processors")
 
 def get_timestep_str(dtminutes):
-  """
+   """
     These tests expect the time step to be input in units of minutes, but MPAS
     requires an "HH:MM:SS" string.  This function converts the time step input
     into the formatted string used by MPAS.
-  """
+   """
    dt = timedelta(minutes=dtminutes)
    if  dtminutes < 1:
      dtstr = "00:00:" + str(dt.total_seconds())[:2]
