@@ -17,9 +17,11 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 compass_root = os.path.normpath(os.path.join(script_path, '..', '..', '..'))
 compass_parent = os.path.normpath(os.path.join(compass_root, '..'))
 transport_tests_dir = os.path.abspath(os.path.join(script_path, '..'))
+template_dir = os.path.abspath(os.path.join(transport_tests_dir,'templates'))
 
 # Config files
-xmlfiles = glob.glob(os.path.join(script_path,"*.xml"))
+xmlin = glob.glob(os.path.join(script_path,"*.xml.in"))
+xmlcp = glob.glob(os.path.join(script_path, "*.xml"))
 
 # Define common strings
 shebang = r'#!/usr/bin/env python'
@@ -180,6 +182,9 @@ if __name__ == '__main__':
   parser.add_argument("--all", action="store_true",
     help="enable all transport tests (this ignores the input file)")
 
+  print("xmlin = ", xmlin)
+  print("xmlcp = ", xmlcp)
+
   # Process input args
   args = parser.parse_args()
 
@@ -214,6 +219,7 @@ if __name__ == '__main__':
     for tc in cfg["test_names"]:
       tcdir = os.path.join(transport_tests_dir, reskey,tc)
       ntests += 1
+      print("tcdir = ", tcdir)
       try:
         os.makedirs(tcdir)
         print("created test case directory: ", tcdir)
@@ -221,16 +227,13 @@ if __name__ == '__main__':
         print("test case directory exists: ", tcdir)
       # Write base mesh script
       write_base_mesh_script(tcdir, resval)
-      for xf in xmlfiles:
-        if "template" in xf:
-          oldfile = os.path.split(xf)[-1]
-          fsp = oldfile.split("_template")
-          newfile = fsp[0] + fsp[1]
-          sedstr = "sed " + "'" + sedin + "' " + xf + " > " + os.path.join(tcdir, newfile)
-          os.system(sedstr)
-        else:
-          # Copy non-templated .xml files
-          copy(xf, os.path.join(tcdir, os.path.split(xf)[-1]))
+      for xf in xmlin:
+        oldfile = os.path.split(xf)[-1]
+        newfile = oldfile[:-3]
+        sedstr = "sed " + "'" + sedin + "' " + xf + " > " + os.path.join(tcdir, newfile)
+        os.system(sedstr)
+      for xf in xmlcp:
+        copy(xf, os.path.join(tcdir, os.path.split(xf)[-1]))
 
   print("created ", ntests, " tests")
 
