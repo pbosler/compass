@@ -82,7 +82,8 @@ from mpas_tools.ocean import build_spherical_mesh"""
     cellWidth, lon, lat = cellWidthVsLatLon()
     build_spherical_mesh(cellWidth, lon, lat, out_filename='base_mesh.nc')"""
 
-  with open(os.path.join(floc,'build_base_mesh.py'),'w') as f:
+  fpath = os.path.join(floc,'build_base_mesh.py')
+  with open(os.open(fpath, os.O_CREAT | os.O_WRONLY, 0o775 ), 'w') as f:
     f.write(shebang + "\n")
     f.write(gen_block)
     f.write(desc_block)
