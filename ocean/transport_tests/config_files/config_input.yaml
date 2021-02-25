@@ -20,18 +20,18 @@ resolutions:
 #   timestep_minutes: 8
 #   vert_levels: 30
 #   nprocs: 144
-  QU210:
-    timestep_minutes: 16
-    vert_levels: 30
-    nprocs: 72
+#  QU210:
+#    timestep_minutes: 16
+#    vert_levels: 30
+#    nprocs: 72
   QU240:
     timestep_minutes: 32
     vert_levels: 30
     nprocs: 36
 
-# all_integrators = ["rk4", "split"]
-integrator: "rk4"
+# all_integrators = ["RK4", "split_explicit"]
+integrator: "RK4"
 
 # all_test_names = ["correlated_tracers", "deformation3D", "divergent2D", "Hadley3D",
 #                   "horizontalWithTopo3D", "nondivergent2D", "rotation2D"]
-test_names: ["nondivergent2D", "rotation2D"]
+test_names: ["nondivergent2D"]

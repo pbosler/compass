@@ -116,8 +116,8 @@ def verify_cfg_input(cfg):
   """
     Verify yaml input for correct values
   """
-  if not (cfg["integrator"] == "rk4" or cfg["integrator"] == "split"):
-    raise RuntimeError("Integrator must be one of ['rk4', 'split']")
+  if not (cfg["integrator"] == "RK4" or cfg["integrator"] == "split_explicit"):
+    raise RuntimeError("Integrator must be one of ['RK4', 'split_explicit']")
   for reskey in cfg["resolutions"]:
     resval = int(reskey[2:])
     if reskey[:2] != "QU":
