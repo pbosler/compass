@@ -11,6 +11,7 @@
 		<option name="config_use_debugTracers">.true.</option>
 		<option name="config_transport_tests_temperature">15.0</option>
 		<option name="config_transport_tests_salinity">35.0</option>
+		<option name="config_transport_tests_flow_id">TMP_flow</option>
 	</namelist>
 
 	<streams name="streams.ocean" keep="immutable" mode="init">

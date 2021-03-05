@@ -9,6 +9,7 @@
 		<template file="templates/template_forward_transport.xml" path_base="script_configuration_dir"/>
 		<option name="config_dt">'TMP_config_dt'</option>
 		<option name="config_time_integrator">'TMP_integrator'</option>
+		<option name="config_transport_tests_flow_id">TMP_flow</option>
 	</namelist>
 
 	<streams name="streams.ocean" keep="immutable" mode="forward">

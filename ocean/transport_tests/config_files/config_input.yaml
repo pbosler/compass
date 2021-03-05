@@ -32,6 +32,6 @@ resolutions:
 # all_integrators = ["RK4", "split_explicit"]
 integrator: "RK4"
 
-# all_test_names = ["correlated_tracers", "deformation3D", "divergent2D", "Hadley3D",
+# all_test_names = ["correlatedTracers2D", "deformation3D", "divergent2D", "Hadley3D",
 #                   "horizontalWithTopo3D", "nondivergent2D", "rotation2D"]
-test_names: ["nondivergent2D"]
+test_names: ["nondivergent2D", "divergent2D"]
